@@ -4,16 +4,21 @@ func BitBoardKing(position uint64) []uint64 {
 
 	k := uint64(1 << position)
 	nA := uint64(0xfefefefefefefefe)
+	nB := uint64(0xfdfdfdfdfdfdfdfd)
+
+	nG := uint64(0xbfbfbfbfbfbfbfbf)
 	nH := uint64(0x7f7f7f7f7f7f7f7f)
-	p7 := (k & nA) << 7
-	p8 := k << 8
-	p9 := (k & nH) << 9
-	p4 := (k & nA) >> 1
-	p6 := (k & nH) << 1
-	p1 := (k & nA) >> 9
-	p2 := k >> 8
-	p3 := (k & nH) >> 7
-	mask := p7 | p8 | p9 | p4 | p6 | p1 | p2 | p3
+
+	p1 := (k & nA) << 15
+	p2 := (k & nH) << 17
+	p3 := (k & nB) & (k & nA) << 6
+	p4 := (k & nG) & (k & nH) << 10
+	p5 := (k & nB) & (k & nA) >> 10
+	p6 := (k & nG) & (k & nH) >> 6
+	p7 := (k & nA) >> 17
+	p8 := (k & nH) >> 15
+
+	mask := p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8
 	count := CountQuantity(mask)
 	result := []uint64{count, mask}
 	return result

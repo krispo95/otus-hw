@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"github.com/krispo95/otus-tester/tester"
-	"otus-hw/07.02.2020-bit-arithmetic/bitboardKing"
 	"strconv"
 )
 
@@ -15,7 +14,7 @@ func (t Test) Run(str []string) []string {
 	if err != nil {
 		panic(err)
 	}
-	res := bitboardKing.BitBoardKing(position)
+	res := BitBoardKing(position)
 	stringResults := make([]string, len(res))
 	for i := range res {
 		stringResults[i] = fmt.Sprint(res[i])
@@ -25,7 +24,7 @@ func (t Test) Run(str []string) []string {
 
 func main() {
 	path := flag.String("path",
-		"/home/krispo/workspace/go_projects/otus-hw-test-files/0.BITS/1.BitboardKing",
+		"/home/krispo/workspace/0.BITS/1.Bitboard - Король",
 		"path to test files")
 	test := Test{}
 	tester.RunTest(*path, test)
