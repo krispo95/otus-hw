@@ -4,6 +4,10 @@ type SingleArray struct {
 	array []int
 }
 
+func (s *SingleArray) New() {
+	s.array = make([]int, 0)
+}
+
 func (s *SingleArray) Size() int {
 	return len(s.array)
 }
