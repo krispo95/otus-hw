@@ -30,5 +30,15 @@ func main() {
 	v.AddToFixedPosition(3, 0)
 	fmt.Println(v.Get(0))
 	fmt.Println(v.Remove(0), v.Size())
+	f := FactorArray{}
+	f.New(2)
+	f.AddToFixedPosition(1, 0)
+	fmt.Println(f.Get(0))
+	f.AddToFixedPosition(2, 0)
+	f.Add(8)
+	fmt.Println(f.Get(0))
+	f.AddToFixedPosition(3, 0)
+	fmt.Println(f.Get(0))
+	fmt.Println(f.Remove(0), f.Size())
 
 }

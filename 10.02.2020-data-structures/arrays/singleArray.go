@@ -12,13 +12,13 @@ func (s *SingleArray) Size() int {
 	return len(s.array)
 }
 func (s *SingleArray) Add(item int) {
-	newArr := s.Resize(1)
-	newArr = append(newArr, item)
+	newArr := s.resize(1)
+	newArr[len(s.array)-1] = item
 	s.array = newArr
 }
 
 func (s *SingleArray) AddToFixedPosition(item int, index int) {
-	newArr := s.MakeEmptyArrayWithNewSize(s.array, 1)
+	newArr := s.makeEmptyArrayWithNewSize(s.array, 1)
 	isAdded := false
 	if len(s.array) == 0 {
 		newArr[0] = item
@@ -44,7 +44,7 @@ func (s *SingleArray) Get(index int) int {
 	return s.array[index]
 }
 func (s *SingleArray) Remove(index int) int {
-	newArr := s.Resize(-1)
+	newArr := s.resize(-1)
 	deletedElement := 0
 	isDeleted := false
 	for i := range s.array {
@@ -63,7 +63,7 @@ func (s *SingleArray) Remove(index int) int {
 	return deletedElement
 }
 
-func (s *SingleArray) Resize(delta int) []int {
+func (s *SingleArray) resize(delta int) []int {
 	newArr := make([]int, len(s.array)+delta)
 	for i := 0; (i < len(s.array)) && (i < len(newArr)); i++ {
 		newArr[i] = s.array[i]
@@ -71,7 +71,7 @@ func (s *SingleArray) Resize(delta int) []int {
 	return newArr
 }
 
-func (s *SingleArray) MakeEmptyArrayWithNewSize(array []int, delta int) []int {
+func (s *SingleArray) makeEmptyArrayWithNewSize(array []int, delta int) []int {
 	newArr := make([]int, len(array)+delta)
 	return newArr
 }

@@ -14,26 +14,28 @@ func (v *VectorArray) Size() int {
 	return len(v.array)
 }
 func (v *VectorArray) Add(item int) {
-	newArr := v.Resize(v.vector)
+	newArr := v.resize(v.vector)
 	newArr = append(newArr, item)
 	v.array = newArr
 }
 
 func (v *VectorArray) AddToFixedPosition(item int, index int) {
-	newArr := v.MakeEmptyArrayWithNewSize(v.array, v.vector)
+	newArr := []int{}
 	if v.Size() == cap(v.array) {
-		newArr = v.Resize(v.vector)
+		newArr = v.makeEmptyArrayWithNewSize(len(v.array)+1, cap(v.array)+v.vector)
+	} else {
+		newArr = v.makeEmptyArrayWithNewSize(len(v.array)+1, cap(v.array))
 	}
 	isAdded := false
 	if len(v.array) == 0 {
-		newArr = append(newArr, item)
+		newArr[0] = item
 		v.array = newArr
 		return
 	}
 	for i := range v.array {
 		if i == index {
 			newArr[i] = item
-			newArr = append(newArr, v.array[i])
+			newArr[i] = v.array[i]
 			isAdded = true
 			continue
 		}
@@ -49,9 +51,11 @@ func (v *VectorArray) Get(index int) int {
 	return v.array[index]
 }
 func (v *VectorArray) Remove(index int) int {
-	newArr := make([]int, len(v.array)-1, cap(v.array))
+	newArr := []int{}
 	if cap(v.array)-len(v.array) == v.vector {
-		newArr = v.Resize(-v.vector)
+		newArr = v.makeEmptyArrayWithNewSize(len(v.array)-1, len(v.array)-v.vector)
+	} else {
+		newArr = v.makeEmptyArrayWithNewSize(len(v.array)-1, cap(v.array))
 	}
 	deletedElement := 0
 	isDeleted := false
@@ -71,7 +75,7 @@ func (v *VectorArray) Remove(index int) int {
 	return deletedElement
 }
 
-func (v *VectorArray) Resize(delta int) []int {
+func (v *VectorArray) resize(delta int) []int {
 	newArr := make([]int, len(v.array), len(v.array)+delta)
 	for i := range v.array {
 		newArr[i] = v.array[i]
@@ -79,7 +83,7 @@ func (v *VectorArray) Resize(delta int) []int {
 	return newArr
 }
 
-func (v *VectorArray) MakeEmptyArrayWithNewSize(array []int, delta int) []int {
-	newArr := make([]int, len(array), len(array)+delta)
+func (v *VectorArray) makeEmptyArrayWithNewSize(leng int, cap int) []int {
+	newArr := make([]int, leng, cap)
 	return newArr
 }
