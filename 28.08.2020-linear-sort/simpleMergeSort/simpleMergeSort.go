@@ -1,7 +1,7 @@
-package main
+package simpleMergeSort
 
-func MergeSort(numbers []int) []int {
-	if len(numbers) == 1 {
+func MergeSort(numbers []uint16) []uint16 {
+	if len(numbers) <= 1 {
 		return numbers
 	}
 	middle := len(numbers) / 2
@@ -10,8 +10,8 @@ func MergeSort(numbers []int) []int {
 	return Merge(MergeSort(left), MergeSort(right))
 }
 
-func Merge(left, right []int) (res []int) {
-	res = make([]int, len(left)+len(right))
+func Merge(left, right []uint16) (res []uint16) {
+	res = make([]uint16, len(left)+len(right))
 
 	i := 0
 	lPtr := 0

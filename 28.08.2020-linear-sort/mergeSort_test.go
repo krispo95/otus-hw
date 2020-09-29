@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"otus-hw/28.08.2020-linear-sort/simpleMergeSort"
 	"reflect"
 	"testing"
 )
@@ -16,22 +17,22 @@ func readNumbersFromFile(path string) ([]byte, error) {
 }
 func TestMergeSort(t *testing.T) {
 	type args struct {
-		numbers []int
+		numbers []uint16
 	}
 	tests := []struct {
 		name string
 		args args
-		want []int
+		want []uint16
 	}{
 		{
-			name: "mergeSort",
-			args: args{numbers: []int{1, 5, 3, 2, 8, 7, 3, 0, 13, 6}},
-			want: []int{0, 1, 2, 3, 3, 5, 6, 7, 8, 13},
+			name: "externalMergeSort",
+			args: args{numbers: []uint16{1, 5, 3, 2, 8, 7, 3, 0, 13, 6}},
+			want: []uint16{0, 1, 2, 3, 3, 5, 6, 7, 8, 13},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MergeSort(tt.args.numbers); !reflect.DeepEqual(got, tt.want) {
+			if got := simpleMergeSort.MergeSort(tt.args.numbers); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("MergeSort() = %v, want %v", got, tt.want)
 			}
 		})
